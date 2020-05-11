@@ -1,0 +1,22 @@
+language:
+node_js:
+    - 13
+    
+services:
+    - docker
+    
+install:
+    - echo "Nothing to Install"
+    
+before_scripts:
+    - echo "No before-scripts to be run"
+    
+scripts:
+    - docker --version
+    - docker build -t simple-node .
+    - docker tag simple-node pol905/simple-node:latest
+    
+after_success:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+     - docker push pol905/simple-node
+    
